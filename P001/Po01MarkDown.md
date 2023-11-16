@@ -32,13 +32,49 @@ private:
 ~~~
 ##### R: Já em Java cada atributo que seja private vai conter a declaração do modificador de acesso antes do nome de cada atributo ou metodo privado. #####
 
-![Alt text](image.png)
+~~~java
+public class Livro {
+
+    // Membros de dados privados
+    private String titulo;
+    private String autor;
+    private int numPaginas;
+}
+~~~
 
 ### **1.2. Diferença na declaração e implementação do atributos:** ###
 
 ##### R: Em C ++ é usado para fins organizacionais e a fragmentação dos elementos de uma classe, geralmente dividindo em uma arquivo CPP e outro HPP, nos arquivos CPP estão as implementações que precisam de “::“ para dizer de onde veio a classe . Já nos arquivos HPP estão guardadas as declarações, como atributos e todo o cabeçalho que também usam “::” na criação, chamando a classe, mas tbm podendo optar pela opção de fazer todo o codigo no msm arquivo, mas ainda sim a chamada da classe terá que ser feita. #####
 
-![Alt text](pessoa.h.png.5f323f1523334d573ce7a0b1863b0fb4.png)
+~~~ c++
+// Livro.cpp
+
+#include "Livro.hpp"
+#include "Autor.hpp"  // Incluindo a declaração da classe Autor
+
+// Implementação do construtor
+Livro::Livro(const std::string& titulo, Autor* autor, int numPaginas)
+    : titulo(titulo), autor(autor), numPaginas(numPaginas) {}
+
+// Métodos públicos
+std::string Livro::getTitulo() const {
+    return titulo;
+}
+
+std::string Livro::getNomeAutor() const {
+    return autor->getNome();
+}
+
+int Livro::getNumPaginas() const {
+    return numPaginas;
+}
+
+void Livro::exibirDetalhes() const {
+    std::cout << "Livro: " << titulo << std::endl;
+    std::cout << "Autor: " << autor->getNome() << std::endl;
+    std::cout << "Número de Páginas: " << numPaginas << std::endl;
+}
+~~~
 
 
 ##### R: Já em Java toda declaração e implementação da classe se encontra no mesmo repositorio atraves de import que uma classe se relaciona com a outra, não necessitando chamadas da mesma classe com o operador de resolução de escopo . #####
@@ -190,15 +226,78 @@ public class Nome {
 ~~~
 ##### R: Ja no c++ os tipos primitivos tem outros nomes quando pode limitar  os valores das variaveis, sendo somente positivos é usado o "unsigned". ja quando os valores podem ser positivo e negativos é utilizado o "signed" + os nomes dos tipos primitivos. Tambem existe um fusão de tipos primitivos fazendo por exemplo um short int, que seria uma combinação de dois tipos primitivos que pode ser declarado  tambem com "unsigned" ou "signed". #####
 ## unsigned ##
-![Alt text](2023-11-12.png)
+~~~ c++
+#include <iostream>
+#include <limits>
+
+int main() {
+    // Tamanhos em bytes dos tipos de dados
+    std::cout << "Tipo de Dado\t|\tCom Sinal\t|\tSem Sinal\t|\tTamanho (bytes)" << std::endl;
+    std::cout << "--------------------------------------------------------------" << std::endl;
+
+    // char
+    std::cout << "char\t\t|\t" << std::numeric_limits<char>::min() << "\t\t|\t"
+              << static_cast<unsigned char>(std::numeric_limits<char>::min()) << "\t\t|\t" << sizeof(char) << std::endl;
+
+    // short
+    std::cout << "short\t\t|\t" << std::numeric_limits<short>::min() << "\t\t|\t"
+              << static_cast<unsigned short>(std::numeric_limits<short>::min()) << "\t\t|\t" << sizeof(short) << std::endl;
+
+    // int
+    std::cout << "int\t\t|\t" << std::numeric_limits<int>::min() << "\t|\t"
+              << static_cast<unsigned int>(std::numeric_limits<int>::min()) << "\t\t|\t" << sizeof(int) << std::endl;
+
+    // long
+    std::cout << "long\t\t|\t" << std::numeric_limits<long>::min() << "\t|\t"
+              << static_cast<unsigned long>(std::numeric_limits<long>::min()) << "\t\t|\t" << sizeof(long) << std::endl;
+
+    // long long
+    std::cout << "long long\t|\t" << std::numeric_limits<long long>::min() << "\t|\t"
+              << static_cast<unsigned long long>(std::numeric_limits<long long>::min()) << "\t\t|\t" << sizeof(long long) << std::endl;
+
+    return 0;
+}
+~~~
 
 ## signed ##
-![Alt text](image-2.png)
+~~~ c++
+#include <iostream>
+#include <limits>
+
+int main() {
+    // Tamanhos em bytes dos tipos de dados
+    std::cout << "Tipo de Dado\t|\tCom Sinal\t|\tValor Mínimo\t|\tValor Máximo\t|\tTamanho (bytes)" << std::endl;
+    std::cout << "-----------------------------------------------------------------------------" << std::endl;
+
+    // char
+    std::cout << "char\t\t|\tsigned char\t|\t" << static_cast<int>(std::numeric_limits<signed char>::min()) << "\t\t|\t"
+              << static_cast<int>(std::numeric_limits<signed char>::max()) << "\t\t|\t" << sizeof(signed char) << std::endl;
+
+    // short
+    std::cout << "short\t\t|\tsigned short\t|\t" << std::numeric_limits<short>::min() << "\t\t|\t"
+              << std::numeric_limits<short>::max() << "\t\t|\t" << sizeof(signed short) << std::endl;
+
+    // int
+    std::cout << "int\t\t|\tsigned int\t|\t" << std::numeric_limits<int>::min() << "\t|\t"
+              << std::numeric_limits<int>::max() << "\t\t|\t" << sizeof(signed int) << std::endl;
+
+    // long
+    std::cout << "long\t\t|\tsigned long\t|\t" << std::numeric_limits<long>::min() << "\t|\t"
+              << std::numeric_limits<long>::max() << "\t\t|\t" << sizeof(signed long) << std::endl;
+
+    // long long
+    std::cout << "long long\t|\tsigned long long\t|\t" << std::numeric_limits<long long>::min() << "\t|\t"
+              << std::numeric_limits<long long>::max() << "\t\t|\t" << sizeof(signed long long) << std::endl;
+
+    return 0;
+}
+~~~
 
 ### **3. Explique o conceito de herança em Java e como você pode criar umasubclasse a partir de uma classe existente. Faça um paralelo com C++, apresentando 5 exemplos.** ###
 ##### R: em java o conceito de herança é o mesmo da linguagem c ++ a diferença esta na declaração da sub-classe em relação a super-classe herdada é que se usa uma palavra chave chamada **extends** para dizer que irar usar metodos e atributos da super-classe(esse acesso não é direto, quando o modificador de acesso é private). #####
 
-![Alt text](image-3.png)
+~~~java
+
 
 
 ##### Em c++ a declaração da super-classe dentro da sub-classe é usando o acento ":", assim como no codigo abaixo. #####
