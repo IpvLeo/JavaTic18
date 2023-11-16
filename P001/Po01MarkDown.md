@@ -348,3 +348,164 @@ int main() {
 ##### Já em c++ a gestão desse ponteiro é de resposabilidade do programador, sendo assim toda vez que um novo espaço na memoria é alocada com o operador **new** ele precisa ser destruido para não ocorrer futuros bugs ou erros no codigo. #####
 
 
+## Calculadora Simples: ##
+
+~~~ java
+import java.util.Scanner;
+public class Calculadora1 {
+private int x;
+private int y;
+private int escolha;
+public
+void somando() //metodo para somar.
+{
+int somar = x + y;
+System.out.println("A Soma de " + x + "+" + y + " = "+
+somar);
+}
+void subtraindo() //metodo para subtrair.
+{
+int subtrair = x - y;
+System.out.println("A Subtracao de " + x + "-" + y + " = "
++ subtrair);
+}
+void multiplicando() //metodo para multiplicar.
+{
+int multiplicar = x * y;
+System.out.println("A Multiplicacao de " + x + "*" + y + "
+= " + multiplicar + "\n");
+}
+void dividindo() //metodo para dividir.
+{
+int dividir = x / y;
+System.out.println("A Divisao de "+ x + "/" + y +" = " +
+dividir);
+}
+//metodo para interface e saida.
+void calculando()
+{
+//um for para criar o loop da lista
+for(int i = 0; i <=4;i++ ) {
+Scanner sc = new Scanner(System.in);
+System.out.println("Digite o Primeiro numero: ");
+x = sc.nextInt();
+System.out.println("Digite o numero o Segundo numero:
+");
+y = sc.nextInt();
+System.out.println("Digite 0 para Sair\nDigite 1 para
+Somar\nDigite 2 para Subtrair\nDigite 3 para Multiplicar\nDigite 4
+para Dividir\nQual operaÃ§Ã£o voce deseja realizar?");
+escolha = sc.nextInt();
+// if para criar condiÃ§oes a qual o usuario pode
+optar.
+if(escolha == 1)
+{
+somando();
+}
+if(escolha == 2) {
+subtraindo();
+}
+if(escolha == 3) {
+multiplicando();
+}
+if(escolha == 4) {
+dividindo();
+}
+else if(escolha > 4)
+{
+System.out.println("OpÃ§Ã£o invalida. Tente
+novamente!");
+}
+else if(escolha == 0)
+{
+break;
+}
+}
+}
+public int getX() {
+return x;
+}
+public void setX(int x) {
+this.x = x;
+}
+public int getY() {
+return y;
+}
+public void setY(int y) {
+this.y = y;
+}
+public int getEscolha() {
+return escolha;
+}
+public void setEscolha(int escolha) {
+this.escolha = escolha;
+}
+public static void main(String[] args)
+{
+Calculadora1 c;
+c = new Calculadora1();
+c.calculando();
+//ImpressÃ£o do codigo.
+}
+}
+~~~
+
+## Conversor de Temperatura ##
+
+~~~ java
+import java.util.Scanner;
+public class Temperatura {
+private float f;
+private float c;
+private float t;
+private float u;
+public
+// metodo para imprimir e calcular dados de fahrenheit
+void fahrenheit()
+{
+float f = (t *9/5) +32;
+System.out.println(t + " Celsius convertidos em Fahrenheit
+Ã©: "+ f +"Â°F");
+}
+// metodo para imprimir e calcular dados de celsius
+void celsius()
+{
+float c = (t-32) *5/9;
+System.out.println( t + " Fahrenheit convertidos em Celsius
+Ã©: " + c +"Â°C");
+}
+//metodo de interface( contem loop e condicÃµes).
+void conversor()
+{
+for(int i = 0; i <=2; i++) {
+Scanner sc = new Scanner(System.in);
+System.out.println("Qual temperatura voce deseja
+converter?");
+t = sc.nextFloat();
+System.out.println("Digite 1 para a conversÃ£o de
+Celsius em Fahrenheit.\nDigite 2 para a conversÃ£o de Fahrenheit em
+Celsius.\n");
+u = sc.nextInt();
+if(u == 1)
+{
+fahrenheit();
+}
+else if(u == 2)
+{
+celsius();
+}
+else if(u > 2)
+{
+System.out.println("OpÃ§Ã£o invalida. Tente
+novamente por favor.\n");
+}
+}
+}
+public static void main(String[] args) {
+Temperatura t;
+t = new Temperatura();
+t.conversor();
+//saida do codigo
+}
+}
+~~~
