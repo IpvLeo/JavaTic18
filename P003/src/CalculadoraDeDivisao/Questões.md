@@ -7,29 +7,20 @@ Java. Dê exemplos de cada uma.
 
 Exceções Verificadas: São exceções que o compilador obriga o programador a tratar ou lançar, através do uso das palavras-chave throws ou try-catch. Exemplos incluem IOException, SQLException. Exemplo:
 
-      **import java.io.IOException;**
-
-      **public class ExcecaoVerificadaExemplo {**
-    
-          **public void metodoComExcecao() throws IOException {**
-    
-              **throw new IOException("Exemplo de exceção verificada");**
-        
-          **}**
-    
-      **}**
+      import java.io.IOException;
+      public class ExcecaoVerificadaExemplo {
+              public void metodoComExcecao() throws IOException {
+                    throw new IOException("Exemplo de exceção verificada");
+              }
+      }
 
 Exceções Não Verificadas: São exceções que herdam de RuntimeException ou Error. O compilador não obriga o tratamento ou lançamento delas. Exemplos incluem NullPointerException, ArrayIndexOutOfBoundsException. Exemplo:
 
-      **public class ExcecaoNaoVerificadaExemplo {**
-
-          **public void metodoComExcecao() {**
-    
-              **throw new NullPointerException("Exemplo de exceção não verificada");**
-        
-          **}**
-    
-      **}**
+      public class ExcecaoNaoVerificadaExemplo {
+          public void metodoComExcecao() {
+              throw new NullPointerException("Exemplo de exceção não verificada");
+          }
+      }
 
 3. Como você pode lidar com exceções em Java? Quais são as palavras-chave e
 as práticas comuns para tratamento de exceções?
@@ -51,14 +42,10 @@ uma exceção personalizada.
 
 Criar exceções personalizadas é apropriado quando os tipos de exceção existentes não conseguem descrever adequadamente o problema específico que ocorreu. Para criar uma exceção personalizada, é necessário criar uma classe que estenda Exception (ou uma de suas subclasses). Por exemplo:
 
-      **public class MeuErroPersonalizado extends Exception {**
-
-          **public MeuErroPersonalizado(String mensagem) {**
-    
-              **super(mensagem);**
-        
-          **}**
-    
-      **}**
+      public class MeuErroPersonalizado extends Exception {
+          public MeuErroPersonalizado(String mensagem) {    
+              super(mensagem);        
+          }    
+      }
 
 Você pode criar uma exceção personalizada quando um cenário específico do seu programa requer tratamento especializado. Por exemplo, se você está desenvolvendo um sistema de pagamento e precisa lidar com um tipo específico de erro de pagamento, pode criar uma exceção personalizada para isso.
