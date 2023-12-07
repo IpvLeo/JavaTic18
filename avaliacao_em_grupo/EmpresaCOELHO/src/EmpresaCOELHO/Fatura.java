@@ -1,51 +1,121 @@
 package EmpresaCOELHO;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
-public class Fatura {
-	private String matriculaImovel;
-    private double leituraAnterior;
-    private double leituraAtual;
-    private LocalDate dataEmissao;
-    private double valorCalculado;
-    private boolean estaQuitada;
+public class Fatura { 
+		
+		public Fatura(Imovel imovel,  int ultimaLeitura, int penultimaLeitura) {
+			this.imovel = imovel;
+			this.ultimaLeitura = ultimaLeitura;
+			this.penultimaLeitura = penultimaLeitura;
+			this.dataEmissao = new Date();
+			this.valorCalculado = calcularValor();
+			this.quitada = false;
+			this.id = ++proximoId; 
+			pagamentos = new ArrayList<Pagamento>();
+		}
+		
+		private Long id;
+		private Imovel imovel;
+		private int ultimaLeitura;
+		private int penultimaLeitura;
+		private Date dataEmissao;
+		private double valorCalculado;
+		private static Long proximoId = 0L; 
+		private List<Pagamento> pagamentos;	
+		private boolean quitada;
 
-    public Fatura(String matriculaImovel, double leituraAnterior, double leituraAtual) {
-        this.matriculaImovel = matriculaImovel;
-        this.leituraAnterior = leituraAnterior;
-        this.leituraAtual = leituraAtual;
-        this.dataEmissao = LocalDate.now();
-        this.valorCalculado = calcularValorFatura();
-        this.estaQuitada = false;
-    }
 
-    public double calcularValorFatura() {
-        return (leituraAtual - leituraAnterior) * 10;
-    }
+		public Long getId() {
+			return id;
+		}
 
-    public void marcarComoQuitada() {
-        this.estaQuitada = true;
-    }
+		public Imovel getImovel() {
+			return imovel;
+		}
 
-    public boolean estaQuitada() {
-        return estaQuitada;
-    }
-    
-    public boolean isQuitada() {
-        return estaQuitada;
-    }
+		public double getUltimaLeitura() {
+			return ultimaLeitura;
+		}
 
-    public void registrarPagamento(Pagamento pagamento) {
+		public double getPenultimaLeitura() {
+			return penultimaLeitura;
+		}
 
-    }
+		public Date getDataEmissao() {
+			return dataEmissao;
+		}
 
-    @Override
-    public String toString() {
-        return "Matrícula do Imóvel: " + matriculaImovel +
-               "\nData de Emissão: " + dataEmissao +
-               "\nLeitura Anterior: " + leituraAnterior +
-               "\nLeitura Atual: " + leituraAtual +
-               "\nValor Calculado: R$" + valorCalculado +
-               "\nQuitada: " + (estaQuitada ? "Sim" : "Não");
-    }
+		public double getValorCalculado() {
+			return valorCalculado;
+		}
+
+		public boolean isQuitada() {
+			return quitada;
+		}
+
+		public List<Pagamento> getPagamentos() {
+			return pagamentos;
+		}
+
+		@Override
+		public String toString() {
+		    StringBuilder sb = new StringBuilder();
+
+		    sb.append("Id: ").append(id)
+		      .append("\nMatrícula do Imóvel: ").append(imovel.getMatricula())
+		      .append("\nData de Emissão: ").append(dataEmissao)
+		      .append("\nÚltima Leitura: ").append(ultimaLeitura)
+		      .append("\nPenúltima Leitura: ").append(penultimaLeitura);
+
+		    double valorParcial = valorPago();
+		    if (valorParcial > 0) {
+		        sb.append("\nValor Pago Parcial: ").append(valorParcial);
+		    }
+
+		    sb.append("\nValor Calculado: ").append(valorCalculado)
+		      .append("\nQuitada: ").append(quitada)
+		      .append("\n---------------------");
+
+		    return sb.toString();
+		}
+		
+
+		private double calcularValor() {
+			return (ultimaLeitura - penultimaLeitura) * 10;
+		}
+
+		public void adicionaPagamento(Pagamento pagamento) {
+		    final double valorFatura = calcularValor();
+		    final double valorPago = valorPago();
+
+		    if (quitada) {
+		        System.out.println("Fatura quitada! Não é possível pagar.");
+		        return;
+		    }
+
+		    pagamentos.add(pagamento);
+
+		    if (valorPago >= valorFatura) {
+		        quitada = true;
+
+		        if (valorPago > valorFatura) {
+		            double valorExcedente = valorPago - valorFatura;
+		            pagamento.geraReembolso(valorExcedente);
+		            System.out.printf("Fatura quitada - reembolso de R$%.2f%n", pagamento.getReembolso().getValor());
+		        } else {
+		            System.out.println("Fatura quitada.");
+		        }
+		    }
+		}
+
+
+		public double valorPago() {
+		    return pagamentos.stream()
+		            .mapToDouble(Pagamento::getValor)
+		            .sum();
+		}
+
 }

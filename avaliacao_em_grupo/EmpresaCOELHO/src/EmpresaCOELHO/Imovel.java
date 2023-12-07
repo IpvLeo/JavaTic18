@@ -1,50 +1,57 @@
 package EmpresaCOELHO;
 
 public class Imovel {
+
+	public Imovel(int matricula, String endereco, int ultimaLeitura, int penultimaLeitura) {
+		this.matricula = matricula;
+		this.endereco = endereco;
+		this.ultimaLeitura = ultimaLeitura;
+		this.penultimaLeitura = penultimaLeitura;
+	}
+	
+	private int matricula;
 	private String endereco;
-    private double consumoAtual;
-    private double consumoAnterior;
-    private String matricula;
+	private int ultimaLeitura;
+	private int penultimaLeitura;
 
-    public Imovel(String endereco, double consumoAtual, double consumoAnterior, String matricula) {
-        this.endereco = endereco;
-        this.consumoAtual = consumoAtual;
-        this.consumoAnterior = consumoAnterior;
-        this.matricula = matricula;
-    }
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
+	}
 
-    // Getters e Setters
-    public String getEndereco() {
-        return endereco;
-    }
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+	public void setUltimaLeitura(int ultimaLeitura) {
+		this.ultimaLeitura = ultimaLeitura;
+	}
 
-    public double getConsumoAtual() {
-        return consumoAtual;
-    }
+	public void setPenultimaLeitura(int penultimaLeitura) {
+		this.penultimaLeitura = penultimaLeitura;
+	}
 
-    public void setConsumoAtual(double consumoAtual) {
-        this.consumoAtual = consumoAtual;
-    }
+	public int getMatricula() {
+		return matricula;
+	}
 
-    public double getConsumoAnterior() {
-        return consumoAnterior;
-    }
+	public String getEndereco() {
+		return endereco;
+	}
 
-    public void setConsumoAnterior(double consumoAnterior) {
-        this.consumoAnterior = consumoAnterior;
-    }
+	public int getUltimaLeitura() {
+		return ultimaLeitura;
+	}
 
-    public double calcularConsumoPeriodo() {
-        return consumoAtual - consumoAnterior;
-    }
-    public String getMatricula() {     
-        return matricula;
-    }
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
+	public int getPenultimaLeitura() {
+		return penultimaLeitura;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Matrícula: " + matricula + ", Endereço: " + endereco + ", Última Leitura: " + ultimaLeitura
+				+ ", Penúltima Leitura: " + penultimaLeitura;
+	}
+
+
 }

@@ -1,37 +1,64 @@
 package EmpresaCOELHO;
 
-public class Reparo {
-	 private Falha falhaAssociada;
-	    private String previsao;
-	    private String dataInicio;
-	    private String dataFim;
-	    private boolean concluido;
+import java.time.LocalDate;
 
-	    public Reparo(Falha falhaAssociada, String previsao, String dataInicio) {
-	        this.falhaAssociada = falhaAssociada;
-	        this.previsao = previsao;
-	        this.dataInicio = dataInicio;
-	        this.concluido = false;
-	    }
+public class Reparo {   
 
-	    public boolean isConcluido() {
-	        return concluido;
-	    }
+    public Reparo(String descricaoAtividade, LocalDate previsao) {
+        this.descricaoAtividade = descricaoAtividade;
+        this.previsao = previsao;
+        this.dataInicio = LocalDate.now();
+        this.resolvido = false;
+    }
+    
+    private String descricaoAtividade;
+    private LocalDate previsao;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+    private boolean resolvido;
 
-	    public void setConcluido(boolean concluido) {
-	        this.concluido = concluido;
-	    }
+    public String getDescricaoAtividade() {
+		return descricaoAtividade;
+	}
 
-	    @Override
-	    public String toString() {
-	        return "Falha: " + falhaAssociada.getTipo() +
-	               "\nDescrição: " + falhaAssociada.getDescricao() +
-	               "\nPrevisão: " + previsao +
-	               "\nData de Início: " + dataInicio +
-	               "\nData de Fim: " + dataFim +
-	               "\nConcluído: " + (concluido ? "Sim" : "Não");
-	    }
-	    public void setDataFinalizacao(String dataFinalizacao) {
-	        this.dataFim = dataFinalizacao;
-	    }
+	public void setDescricaoAtividade(String descricaoAtividade) {
+		this.descricaoAtividade = descricaoAtividade;
+	}
+
+	public LocalDate getPrevisao() {
+		return previsao;
+	}
+
+	public void setPrevisao(LocalDate previsao) {
+		this.previsao = previsao;
+	}
+
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public LocalDate getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(LocalDate dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public void setResolvido(boolean resolvido) {
+		this.resolvido = resolvido;
+	}
+
+	public void finalizarReparo(boolean resolvido) {
+        this.dataFim = LocalDate.now();
+        this.resolvido = resolvido;
+    }
+
+    public boolean isResolvido() {
+        return resolvido;
+    }
 }

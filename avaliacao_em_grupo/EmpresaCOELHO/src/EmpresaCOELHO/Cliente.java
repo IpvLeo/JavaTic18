@@ -1,15 +1,18 @@
 package EmpresaCOELHO;
+import java.util.ArrayList;
 
 public class Cliente {
-	private String nome;
-    private String cpf;
 
     public Cliente(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
+        this.imoveis = new ArrayList<>();
     }
+    
+    private String nome;
+    private String cpf;
+    private ArrayList<Imovel> imoveis;
 
-    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -29,4 +32,16 @@ public class Cliente {
     public String toString() {
         return "Nome: " + nome + ", CPF: " + cpf;
     }
+
+    public ArrayList<Imovel> getImoveis() {
+		return imoveis;
+	}
+
+	public void adicionarImovel(Imovel imovel) {
+		imoveis.add(imovel);
+	}
+
+	public void excluiImovel(Imovel imovel) {
+		imoveis.remove(imovel);
+	}
 }
